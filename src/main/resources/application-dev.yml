@@ -1,0 +1,24 @@
+#spring:
+##  profiles:
+##    active: dev # Default profile to be used
+#  security:
+#    user:
+#      name: devuser # Set your desired username
+#      password: devpass # Set your desired password
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/rental_tool_db
+#    username: devdbuser
+#    password: devdbpassword
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+#    show-sql: true
+#  liquibase:
+#    enabled: true
+#  application:
+#    name: RentalToolManagement
+#logging:
+#  level:
+#    root: DEBUG

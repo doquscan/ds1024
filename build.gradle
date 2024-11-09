@@ -1,0 +1,86 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.2'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id("com.bmuschko.docker-spring-boot-application") version "9.4.0"
+//	id 'org.liquibase.gradle' version '2.1.1'
+}
+
+group = 'com.rental.tool'
+version = '0.0.1-SNAPSHOT'
+description = 'Rental Tool Management Rest Service'
+sourceCompatibility = '17'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+//liquibase {
+//	activities {
+//		main {
+//			changeLogFile 'src/main/resources/db/changelog/changes/changelog-01.yml' // Path to your changelog file
+//			url 'jdbc:mysql://localhost:3306/tools'
+//			username 'password'
+//			password 'password'
+//			defaultSchemaName 'tools'
+//		}
+//	}
+//	runList = 'main'
+//}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2023.0.3")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// This is very much essential for validation
+	implementation('org.springframework.boot:spring-boot-starter-validation')
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'org.mockito:mockito-core:5.5.0'
+	testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+	testImplementation 'org.assertj:assertj-core:3.24.2'
+	testImplementation 'org.hamcrest:hamcrest:2.2'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
+	implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	implementation 'mysql:mysql-connector-java:8.0.33'  // Specify the version explicitly
+	runtimeOnly 'com.h2database:h2'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.github.resilience4j:resilience4j-spring-boot3:2.0.2'
+
+}
+tasks.withType(Test) {
+	useJUnitPlatform()
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

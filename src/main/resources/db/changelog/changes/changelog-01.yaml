@@ -1,0 +1,159 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001
+      author: doguscan
+      changes:
+        - createTable:
+            tableName: tool
+            columns:
+              - column:
+                  name: tool_code
+                  type: VARCHAR(10)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: tool_type
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: brand
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 002
+      author: doguscan
+      changes:
+        - createTable:
+            tableName: tool_charge
+            columns:
+              - column:
+                  name: tool_charge_id
+                  type: VARCHAR(10)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: tool_code
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: daily_rental_charge
+                  type: DECIMAL(10,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: weekday_charge
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+              - column:
+                  name: weekend_charge
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+              - column:
+                  name: holiday_charge
+                  type: BOOLEAN
+                  defaultValueBoolean: false
+        - addForeignKeyConstraint:
+            baseTableName: tool_charge
+            baseColumnNames: tool_code
+            referencedTableName: tool
+            referencedColumnNames: tool_code
+            constraintName: fk_tool_charge_tool
+            onDelete: CASCADE
+  - changeSet:
+      id: 003
+      author: doguscan
+      changes:
+        - createTable:
+            tableName: rental
+            columns:
+              - column:
+                  name: rental_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: tool_code
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rental_days
+                  type: INT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: checkout_date
+                  type: DATE
+                  constraints:
+                    nullable: false
+              - column:
+                  name: discount_percent
+                  type: DECIMAL(5,2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: pre_discount_charge
+                  type: DECIMAL(10,2)
+              - column:
+                  name: discount_amount
+                  type: DECIMAL(10,2)
+              - column:
+                  name: final_charge
+                  type: DECIMAL(10,2)
+              - column:
+                  name: due_date
+                  type: DATE
+        - addForeignKeyConstraint:
+            baseTableName: rental
+            baseColumnNames: tool_code
+            referencedTableName: tool
+            referencedColumnNames: tool_code
+            onDelete: CASCADE
+            constraintName: fk_rental_tool
+  - changeSet:
+      id: 004
+      author: doguscan
+      changes:
+        - createTable:
+            tableName: audit
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: transaction_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: success
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+              - column:
+                  name: message
+                  type: TEXT

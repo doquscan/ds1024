@@ -1,0 +1,14 @@
+#spring:
+#  security:
+#    user:
+#      name: admin        # Production admin username
+#      password: securepass  # Production admin password (use strong password in production)
+#
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/proddb
+#    username: proddbuser
+#    password: proddbpassword
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#logging:
+#  level:
+#    root: WARN

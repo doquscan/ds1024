@@ -1,0 +1,140 @@
+#openapi: 3.0.1
+#info:
+#  title: Tool Rental Service API
+#  description: API for renting tools
+#  version: 1.0.0
+#
+#servers:
+#  - url: http://localhost:8080/api
+#    description: Local development server
+#
+#tags:
+#  - name: Tool Rental Service
+#    description: API for renting tools
+#
+#paths:
+#  /api/rentals/checkout:
+#    post:
+#      tags:
+#        - Tool Rental Service
+#      operationId: checkoutTool
+#      summary: Check Out Rental Tool
+#      description: Returns the rental agreement instance
+#      requestBody:
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/RentalRequest'
+#      responses:
+#        '200':
+#          description: Check Out successful
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/RentalAgreementDTO'
+#        '400':
+#          description: Bad Input
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/ErrorResponse'
+#
+#components:
+#  schemas:
+#    RentalRequest:
+#      type: object
+#      properties:
+#        toolCode:
+#          type: string
+#          description: The code of the tool being rented
+#          example: LADW
+#        rentalDays:
+#          type: integer
+#          description: The number of rental days
+#          example: 3
+#        discountPercent:
+#          type: number
+#          format: double
+#          description: The discount percent applied to the rental
+#          example: 10.0
+#        checkoutDate:
+#          type: string
+#          format: date
+#          description: The date of the rental checkout
+#          example: 2020-07-02
+#      required:
+#        - toolCode
+#        - rentalDays
+#        - discountPercent
+#        - checkoutDate
+#
+#    RentalAgreementDTO:
+#      type: object
+#      properties:
+#        toolCode:
+#          type: string
+#          description: Code of the rented tool
+#        toolBrand:
+#          type: string
+#          description: Brand of the rented tool
+#        toolType:
+#          type: string
+#          description: Type of the rented tool
+#        rentalDays:
+#          type: integer
+#          description: Number of rental days
+#        dailyRentalCharge:
+#          type: number
+#          format: double
+#          description: Daily rental charge
+#        preDiscountCharge:
+#          type: number
+#          format: double
+#          description: Total charge before the discount is applied
+#        discountAmount:
+#          type: number
+#          format: double
+#          description: Amount discounted from the total charge
+#        finalCharge:
+#          type: number
+#          format: double
+#          description: Total final charge after the discount is applied
+#        checkoutDate:
+#          type: string
+#          format: date
+#          description: Date the tool was checked out
+#        dueDate:
+#          type: string
+#          format: date
+#          description: Date the tool is due for return
+#        discountPercent:
+#          type: integer
+#          description: Discount percent applied to the rental
+#      required:
+#        - toolCode
+#        - toolBrand
+#        - toolType
+#        - rentalDays
+#        - dailyRentalCharge
+#        - preDiscountCharge
+#        - discountAmount
+#        - finalCharge
+#        - checkoutDate
+#        - dueDate
+#        - discountPercent
+#
+#    ErrorResponse:
+#      type: object
+#      properties:
+#        statusCode:
+#          type: integer
+#          description: HTTP status code of the error
+#          example: 400
+#        message:
+#          type: string
+#          description: Error message describing the problem
+#          example: Transaction failed. Tool not found
+#      required:
+#        - statusCode
+#        - message

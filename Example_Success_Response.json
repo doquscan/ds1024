@@ -1,0 +1,23 @@
+{
+  "status": 200,
+  "message": "Rental checkout successful",
+  "data": {
+    "toolCode": "LADW",
+    "toolType": "Ladder",
+    "toolBrand": "Werner",
+    "rentalDays": 1,
+    "checkoutDate": "2024-11-09",
+    "dueDate": "2024-11-10",
+    "dailyRentalCharge": 1.99,
+    "weekdayCharge": true,
+    "weekendCharge": true,
+    "holidayCharge": false,
+    "chargeDays": 1,
+    "preDiscountCharge": 1.99,
+    "discountPercent": 14,
+    "discountAmount": 0.28,
+    "finalCharge": 1.71,
+    "errorMessage": null
+  },
+  "errors": null
+}

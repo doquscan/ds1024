@@ -1,0 +1,15 @@
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: tools
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"                              # Expose MySQL on port 3306
+    volumes:
+      - mysql_data:/var/lib/mysql                # Persist data
+
+volumes:
+  mysql_data:
